@@ -15,9 +15,9 @@ data = data[data['ip_location'].str.strip() != '']
 
 # 第三步：处理地理位置数据
 # 假设地理位置数据为城市名
-# 统计每个城市的出现次数
+# 统计每个城市的出现次数 (统计了不同省份的评论数据)
 # 数据，包含省份名称和数值
-location_counts = data['ip_location'].value_counts().to_dict()
+location_counts = data['ip_location'].value_counts().to_dict()  #将相同省份出现的评论数相加得到
 # print(location_counts)
 cleaned_data = {}
 for key, value in location_counts.items():
@@ -85,46 +85,54 @@ print(updated_example_data)
 c = (
     Map3D()
     .add_schema(
-        # 设置地图样式
         itemstyle_opts=opts.ItemStyleOpts(
             color="rgb(0, 128, 255)",  # 更鲜艳的蓝色
-            opacity=1,  # 透明度
-            border_width=0.8,  # 边界宽度
-            border_color="rgb(62,215,213)",  # 边界颜色
+            opacity=0.8,  # 透明度
+            border_width=1,  # 边界宽度
+            border_color="rgb(255, 255, 255)",  # 边界颜色为白色
         ),
-        # 设置地图标签样式
         map3d_label=opts.Map3DLabelOpts(
-            is_show=False,  # 是否显示标签
-            formatter=JsCode("function(data){return data.name + ' ' + data.value[2];}"),  # 标签内容格式
+            is_show=False,
+            formatter=JsCode("function(data){return data.name + ' ' + data.value[2];}"),
         ),
-        # 设置高亮时的标签样式
         emphasis_label_opts=opts.LabelOpts(
-            is_show=False,  # 是否显示标签
-            color="#fff",  # 标签颜色
-            font_size=10,  # 字体大小
-            background_color="rgba(0,23,11,0)",  # 背景颜色
+            is_show=False,
+            color="#fff",
+            font_size=10,
+            background_color="rgba(0,23,11,0)",
         ),
-        # 设置光照效果
         light_opts=opts.Map3DLightOpts(
-            main_color="#fff",  # 主光源颜色
-            main_intensity=1.2,  # 主光源强度
-            main_shadow_quality="high",  # 主光源阴影质量
-            is_main_shadow=False,  # 是否显示主光源阴影
-            main_beta=10,  # 主光源的 β 角度
-            ambient_intensity=0.3,  # 环境光强度
+            main_color="#fff",
+            main_intensity=1.5,  # 增加主光源强度
+            main_shadow_quality="high",
+            is_main_shadow=False,
+            main_beta=30,  # 调整主光源的 β 角度
+            ambient_intensity=0.5,  # 增加环境光强度
         ),
     )
     .add(
-        series_name="bar3D",  # 系列名称
-        data_pair=updated_example_data,  # 数据
-        type_=ChartType.BAR3D,  # 图表类型为 3D 柱状图
-        bar_size=1.5,  # 柱子大小
-        shading="lambert",  # 着色方式
+        series_name="评论数量",
+        data_pair=updated_example_data,
+        type_=ChartType.BAR3D,
+        bar_size=1.5,  # 增加柱子大小
+        shading="lambert",
         label_opts=opts.LabelOpts(
-            is_show=True,  # 是否显示标签
-            formatter=JsCode("function(data){return data.name + ' ' + data.value[2];}"),  # 标签内容格式
+            is_show=True,
+            color="#000",  # 标签文字颜色为黑色
+            font_size=12,  # 增大字体大小
+            formatter=JsCode("function(data){return data.name + ' ' + data.value[2];}"),
         ),
+        # itemstyle_opts=opts.ItemStyleOpts(
+        #     color=JsCode(
+        #         """
+        #         new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+        #             { offset: 0, color: 'rgb(255, 0, 0)' },  # 红色
+        #             { offset: 1, color: 'rgb(255, 255, 0)' }  # 黄色
+        #         ])
+        #         """
+        #     ),
+        # ),
     )
-    .set_global_opts(title_opts=opts.TitleOpts(title="Map3D-Bar3D"))  # 设置全局选项，标题为 "Map3D-Bar3D"
-    .render("map3d_with_bar3d.html")  # 渲染图表，输出为 HTML 文件
+    .set_global_opts(title_opts=opts.TitleOpts(title="3D不同省份关于“旅游”话题的讨论次数"))
+    .render("map3d_with_bar3d.html")
 )
