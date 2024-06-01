@@ -21,34 +21,34 @@ cleaned_data = {}
 for key, value in location_counts.items():
     if isinstance(value, int) and not key.isdigit() and not any(char.isdigit() for char in key):
         cleaned_data[key] = value
-new_dic = dict(广东=1216, 浙江=478, 四川=436, 江苏=413, 上海=331, 北京=304, 山东=265, 河南=250, 湖南=229, 福建=226,
-               湖北=216, 广西=198, 重庆=182, 安徽=164, 陕西=162, 河北=141, 辽宁=133, 江西=131, 云南=111, 天津=88,
-               海南=80, 山西=78, 贵州=70, 美国=67, 吉林=63, 黑龙江=58, 新疆=47, 中国=47, 日本=37, 甘肃=37, 内蒙古=33,
-               澳大利亚=31, 中国香港=28, 泰国=18, 英国=16, 加拿大=16, 青海=14, 宁夏=12, 德国=11, 马来西亚=10, 新加坡=9,
-               西班牙=6, 阿联酋=6, 意大利=5, 中国台湾=5, 韩国=4, 俄罗斯=3, 新西兰=3, 越南=3, 约旦=3, 中国澳门=3, 荷兰=3,
-               老挝=3, 南非=2, 瑞士=2, 柬埔寨=2, 法国=2, 西藏=2, 喀麦隆=2, 印度尼西亚=1, 埃及=1,
-               尼日利亚=1, 葡萄牙=1, 奥地利=1, 乌干达=1, 爱尔兰=1, 波兰=1, 坦桑尼亚=1, 沙特阿拉伯=1, 白俄罗斯=1, 帕劳=1,
-               瑞典=1)
+# new_dic = dict(广东=1216, 浙江=478, 四川=436, 江苏=413, 上海=331, 北京=304, 山东=265, 河南=250, 湖南=229, 福建=226,
+#                湖北=216, 广西=198, 重庆=182, 安徽=164, 陕西=162, 河北=141, 辽宁=133, 江西=131, 云南=111, 天津=88,
+#                海南=80, 山西=78, 贵州=70, 美国=67, 吉林=63, 黑龙江=58, 新疆=47, 中国=47, 日本=37, 甘肃=37, 内蒙古=33,
+#                澳大利亚=31, 中国香港=28, 泰国=18, 英国=16, 加拿大=16, 青海=14, 宁夏=12, 德国=11, 马来西亚=10, 新加坡=9,
+#                西班牙=6, 阿联酋=6, 意大利=5, 中国台湾=5, 韩国=4, 俄罗斯=3, 新西兰=3, 越南=3, 约旦=3, 中国澳门=3, 荷兰=3,
+#                老挝=3, 南非=2, 瑞士=2, 柬埔寨=2, 法国=2, 西藏=2, 喀麦隆=2, 印度尼西亚=1, 埃及=1,
+#                尼日利亚=1, 葡萄牙=1, 奥地利=1, 乌干达=1, 爱尔兰=1, 波兰=1, 坦桑尼亚=1, 沙特阿拉伯=1, 白俄罗斯=1, 帕劳=1,
+#                瑞典=1)
 
-sequence = [(k, v) for k, v in new_dic.items()]
-print(sequence)
+# sequence = [(k, v) for k, v in cleaned_data.items()]
+print(cleaned_data)
 
-
-def map_visualmap(sequence, title) -> Map:
-    c = (
-        Map(opts.InitOpts(width='1200px', height='600px'))  # 设置画布大小
-        .add(series_name="用户数量", data_pair=sequence, maptype="china")  # 添加数据
-        .set_global_opts(
-            title_opts=opts.TitleOpts(title=title),  # 设置标题
-            visualmap_opts=opts.VisualMapOpts(max_=1300, min_=10),  # 设置视觉映射配置
-        )
-    )
-    return c
-
-# 创建地图对象
-china_map = map_visualmap(sequence, "中国各省份用户数量")
-# 渲染地图到HTML文件
-china_map.render(path='china_user_distribution.html')
+#
+# def map_visualmap(sequence, title) -> Map:
+#     c = (
+#         Map(opts.InitOpts(width='1200px', height='600px'))  # 设置画布大小
+#         .add(series_name="用户数量", data_pair=sequence, maptype="china")  # 添加数据
+#         .set_global_opts(
+#             title_opts=opts.TitleOpts(title=title),  # 设置标题
+#             visualmap_opts=opts.VisualMapOpts(max_=1300, min_=10),  # 设置视觉映射配置
+#         )
+#     )
+#     return c
+#
+# # 创建地图对象
+# china_map = map_visualmap(sequence, "中国各省份用户数量")
+# # 渲染地图到HTML文件
+# china_map.render(path='china_user_distribution.html')
 
 # # 定义正则表达式来过滤非地理位置的数据
 # def is_valid_location(location):
