@@ -87,7 +87,7 @@ c = (
     .add_schema(
         # 设置地图样式
         itemstyle_opts=opts.ItemStyleOpts(
-            color="rgb(5,101,123)",  # 地图颜色
+            color="rgb(0, 128, 255)",  # 更鲜艳的蓝色
             opacity=1,  # 透明度
             border_width=0.8,  # 边界宽度
             border_color="rgb(62,215,213)",  # 边界颜色
@@ -118,10 +118,10 @@ c = (
         series_name="bar3D",  # 系列名称
         data_pair=updated_example_data,  # 数据
         type_=ChartType.BAR3D,  # 图表类型为 3D 柱状图
-        bar_size=1,  # 柱子大小
+        bar_size=1.5,  # 柱子大小
         shading="lambert",  # 着色方式
         label_opts=opts.LabelOpts(
-            is_show=False,  # 是否显示标签
+            is_show=True,  # 是否显示标签
             formatter=JsCode("function(data){return data.name + ' ' + data.value[2];}"),  # 标签内容格式
         ),
     )
