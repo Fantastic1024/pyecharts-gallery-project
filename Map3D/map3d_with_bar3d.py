@@ -3,6 +3,7 @@ from pyecharts.charts import Map3D
 from pyecharts.globals import ChartType
 from pyecharts.commons.utils import JsCode
 
+# 示例数据，包含省份名称、经纬度和数值
 example_data = [
     ("黑龙江", [127.9688, 45.368, 100]),
     ("内蒙古", [110.3467, 41.4899, 300]),
@@ -34,45 +35,50 @@ example_data = [
     ("上海", [121.4648, 31.2891, 1300]),
 ]
 
+# 创建 Map3D 对象
 c = (
     Map3D()
     .add_schema(
+        # 设置地图样式
         itemstyle_opts=opts.ItemStyleOpts(
-            color="rgb(5,101,123)",
-            opacity=1,
-            border_width=0.8,
-            border_color="rgb(62,215,213)",
+            color="rgb(5,101,123)",  # 地图颜色
+            opacity=1,  # 透明度
+            border_width=0.8,  # 边界宽度
+            border_color="rgb(62,215,213)",  # 边界颜色
         ),
+        # 设置地图标签样式
         map3d_label=opts.Map3DLabelOpts(
-            is_show=False,
-            formatter=JsCode("function(data){return data.name + " " + data.value[2];}"),
+            is_show=False,  # 是否显示标签
+            formatter=JsCode("function(data){return data.name + ' ' + data.value[2];}"),  # 标签内容格式
         ),
+        # 设置高亮时的标签样式
         emphasis_label_opts=opts.LabelOpts(
-            is_show=False,
-            color="#fff",
-            font_size=10,
-            background_color="rgba(0,23,11,0)",
+            is_show=False,  # 是否显示标签
+            color="#fff",  # 标签颜色
+            font_size=10,  # 字体大小
+            background_color="rgba(0,23,11,0)",  # 背景颜色
         ),
+        # 设置光照效果
         light_opts=opts.Map3DLightOpts(
-            main_color="#fff",
-            main_intensity=1.2,
-            main_shadow_quality="high",
-            is_main_shadow=False,
-            main_beta=10,
-            ambient_intensity=0.3,
+            main_color="#fff",  # 主光源颜色
+            main_intensity=1.2,  # 主光源强度
+            main_shadow_quality="high",  # 主光源阴影质量
+            is_main_shadow=False,  # 是否显示主光源阴影
+            main_beta=10,  # 主光源的 β 角度
+            ambient_intensity=0.3,  # 环境光强度
         ),
     )
     .add(
-        series_name="bar3D",
-        data_pair=example_data,
-        type_=ChartType.BAR3D,
-        bar_size=1,
-        shading="lambert",
+        series_name="bar3D",  # 系列名称
+        data_pair=example_data,  # 数据
+        type_=ChartType.BAR3D,  # 图表类型为 3D 柱状图
+        bar_size=1,  # 柱子大小
+        shading="lambert",  # 着色方式
         label_opts=opts.LabelOpts(
-            is_show=False,
-            formatter=JsCode("function(data){return data.name + ' ' + data.value[2];}"),
+            is_show=False,  # 是否显示标签
+            formatter=JsCode("function(data){return data.name + ' ' + data.value[2];}"),  # 标签内容格式
         ),
     )
-    .set_global_opts(title_opts=opts.TitleOpts(title="Map3D-Bar3D"))
-    .render("map3d_with_bar3d.html")
+    .set_global_opts(title_opts=opts.TitleOpts(title="Map3D-Bar3D"))  # 设置全局选项，标题为 "Map3D-Bar3D"
+    .render("map3d_with_bar3d.html")  # 渲染图表，输出为 HTML 文件
 )
